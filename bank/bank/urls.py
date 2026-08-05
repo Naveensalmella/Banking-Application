@@ -21,7 +21,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from app.views import RegisterView,ProfileView,AccountView
+from app.views import RegisterView,ProfileView,AccountView,DepositView,Withdraw,TransferView
 
 
 urlpatterns = [
@@ -30,6 +30,8 @@ urlpatterns = [
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('profile/',ProfileView.as_view()),
-    path('account/',AccountView.as_view())
-
+    path('account/',AccountView.as_view()),
+    path('deposit/',DepositView.as_view()),
+    path('withdraw/',Withdraw.as_view()),
+    path('transfer/',TransferView.as_view())
 ]

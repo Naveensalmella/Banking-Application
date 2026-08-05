@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["username","first_name","last_name","email"]
+        fields = ["username","first_name","last_name","email","password"]
         except_kwargs = {
             "password": {
                 "write_only":True
@@ -36,4 +36,17 @@ from app.models import Account
 class AccountSerializers(serializers.ModelSerializer):
     class Meta:
         model = Account
+        fields = "__all__"
+
+from app.models import Transaction
+
+class TransactionSerializer(serializers.ModelSerializer):
+
+    from_account_number = serializers.CharField(source="from_account.account_number",read_only=True)
+    to_account_number = serializers.CharField(source="to_account.account_number",read_only=True)
+    from_user = serializers.CharField(source="from_account.user.username",read_only=True)
+    to_user = serializers.CharField(source="to_account.user.username",read_only=True)
+
+    class Meta:
+        model = Transaction
         fields = "__all__"

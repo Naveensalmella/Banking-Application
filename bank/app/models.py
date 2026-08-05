@@ -21,3 +21,16 @@ class Account(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Transaction(models.Model):
+    TRANSACTION_TYPES = (
+        ("deposit","deposit"),
+        ("withdraw","withdraw"),
+        ("transfer","transfer")
+    )
+
+    from_account = models.ForeignKey(Account,on_delete=models.CASCADE,null=True,blank=True,related_name="sent")
+    to_account = models.ForeignKey(Account,on_delete=models.CASCADE,null=True,blank=True,related_name="receiver")
+    amount = models.DecimalField(max_digits=12,decimal_places=2)
+    transaction_type = models.CharField(max_length=20,choices=TRANSACTION_TYPES)
+    created_at = models.DateTimeField(auto_now_add=True)
