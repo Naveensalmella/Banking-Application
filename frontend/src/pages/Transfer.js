@@ -64,7 +64,7 @@ function Transfer() {
                             />
                         </div>
 
-                        <button className="txn-submit transfer press-scale"F type="submit" disabled={loading}>
+                        <button className="txn-submit transfer press-scale" type="submit" disabled={loading}>
                             {loading ? "Processing..." : "Transfer"}
                         </button>
                         {notice && <div className="txn-notice">{notice}</div>}

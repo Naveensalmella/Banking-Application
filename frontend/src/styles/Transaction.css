@@ -7,29 +7,33 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 18px 32px;
+    padding: 16px 32px;
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .txn-back {
-    background: none;
-    border: 1.5px solid var(--color-border);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
     color: var(--color-ink);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.15s ease;
+    transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .txn-back:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
+    background: var(--color-primary-glow);
 }
 
 .txn-nav-title {
@@ -39,7 +43,7 @@
 }
 
 .txn-main {
-    max-width: 480px;
+    max-width: 500px;
     margin: 0 auto;
     padding: 40px 24px 60px;
 }
@@ -47,8 +51,8 @@
 .txn-card {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: 32px 28px;
+    border-radius: var(--radius-xl);
+    padding: 36px 28px;
     box-shadow: var(--shadow-card);
 }
 
@@ -57,8 +61,10 @@
     font-size: 13px;
     font-weight: 500;
     color: var(--color-muted);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }
 
 .txn-amount-wrap {
@@ -67,7 +73,7 @@
     justify-content: center;
     gap: 4px;
     margin-bottom: 28px;
-    padding-bottom: 20px;
+    padding-bottom: 24px;
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -80,18 +86,24 @@
 
 .txn-amount-input {
     font-family: var(--font-display);
-    font-size: 40px;
-    font-weight: 600;
+    font-size: 44px;
+    font-weight: 700;
     border: none;
     outline: none;
-    width: 220px;
+    width: 200px;
     text-align: center;
     color: var(--color-ink);
     background: transparent;
+    caret-color: var(--color-primary);
+}
+
+.txn-amount-input::placeholder {
+    color: var(--color-muted);
+    opacity: 0.3;
 }
 
 .txn-field {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 .txn-field-label {
@@ -109,13 +121,20 @@
     border: 1.5px solid var(--color-border);
     font-size: 15px;
     font-family: var(--font-body);
-    background: #FBFBFD;
+    background: var(--color-surface-2);
+    color: var(--color-ink);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.txn-input::placeholder {
+    color: var(--color-muted);
+    opacity: 0.5;
 }
 
 .txn-input:focus {
     outline: none;
     border-color: var(--color-primary);
-    background: #fff;
+    box-shadow: 0 0 0 3px var(--color-primary-glow);
 }
 
 .txn-submit {
@@ -129,68 +148,99 @@
     cursor: pointer;
     color: #fff;
     margin-top: 8px;
-    transition: opacity 0.15s ease, transform 0.1s ease;
+    transition: opacity 0.15s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    letter-spacing: 0.01em;
+}
+
+.txn-submit:hover {
+    opacity: 0.9;
 }
 
 .txn-submit:active {
     transform: scale(0.98);
 }
 
+.txn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .txn-submit.deposit {
-    background: var(--color-mint);
+    background: linear-gradient(135deg, #00B87A, #00D68F);
+    box-shadow: 0 4px 16px rgba(0, 214, 143, 0.25);
 }
 
 .txn-submit.withdraw {
-    background: var(--color-coral);
+    background: linear-gradient(135deg, #E74C3C, #FF6B6B);
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.25);
 }
 
 .txn-submit.transfer {
-    background: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-primary), #8B5CF6);
+    box-shadow: 0 4px 16px rgba(108, 92, 231, 0.3);
 }
 
 .txn-notice {
-    margin-top: 16px;
-    padding: 12px 14px;
+    margin-top: 18px;
+    padding: 12px 16px;
     border-radius: var(--radius-sm);
-    background: #FFF8E8;
-    border: 1px solid #F5E3B3;
-    color: #8A6B1F;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    color: var(--color-amber);
     font-size: 13px;
     text-align: center;
+    font-weight: 500;
 }
 
 /* History */
 .history-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .history-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 16px;
+    padding: 16px 18px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.history-row:hover {
+    border-color: var(--color-border-hover);
+    background: var(--color-surface-2);
 }
 
 .history-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .history-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
-    background: var(--color-bg);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.history-icon.in {
+    background: var(--color-mint-glow);
+    color: var(--color-mint);
+}
+
+.history-icon.out {
+    background: var(--color-coral-glow);
+    color: var(--color-coral);
 }
 
 .history-type {
@@ -201,12 +251,14 @@
 .history-date {
     font-size: 12px;
     color: var(--color-muted);
+    margin-top: 2px;
 }
 
 .history-amount {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 15px;
+    white-space: nowrap;
 }
 
 .history-amount.in {
@@ -215,4 +267,37 @@
 
 .history-amount.out {
     color: var(--color-coral);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .txn-nav {
+        padding: 14px 18px;
+    }
+
+    .txn-main {
+        padding: 24px 16px 60px;
+    }
+
+    .txn-card {
+        padding: 28px 20px;
+        border-radius: var(--radius-lg);
+    }
+
+    .txn-amount-input {
+        font-size: 36px;
+        width: 160px;
+    }
+
+    .history-row {
+        padding: 14px 14px;
+    }
+
+    .history-type {
+        font-size: 13px;
+    }
+
+    .history-amount {
+        font-size: 14px;
+    }
 }

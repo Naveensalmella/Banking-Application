@@ -3,13 +3,18 @@
     background: var(--color-bg);
 }
 
+/* ── Navbar ── */
 .dash-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 32px;
+    padding: 16px 32px;
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .dash-nav-brand {
@@ -18,15 +23,36 @@
     gap: 10px;
 }
 
+.dash-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dash-profile-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-muted);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.dash-profile-link:hover {
+    color: var(--color-ink);
+    background: var(--color-surface-2);
+}
+
 .dash-logout {
     background: none;
     border: 1.5px solid var(--color-border);
-    padding: 9px 18px;
+    padding: 8px 18px;
     border-radius: var(--radius-sm);
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 14px;
-    color: var(--color-ink);
+    font-size: 13px;
+    color: var(--color-muted);
     cursor: pointer;
     transition: border-color 0.15s ease, color 0.15s ease;
 }
@@ -36,10 +62,11 @@
     color: var(--color-coral);
 }
 
+/* ── Main ── */
 .dash-main {
-    max-width: 720px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 36px 24px 60px;
+    padding: 32px 24px 80px;
 }
 
 .dash-greeting {
@@ -52,106 +79,163 @@
     color: var(--color-ink);
 }
 
+/* ── Balance Card ── */
 .balance-card {
     position: relative;
     overflow: hidden;
-    border-radius: 22px;
-    padding: 28px 26px;
-    margin: 18px 0 28px;
+    border-radius: var(--radius-xl);
+    padding: 32px 28px;
+    margin: 18px 0 32px;
     background:
-        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.14), transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(0, 184, 122, 0.35), transparent 45%),
-        linear-gradient(135deg, #201F45 0%, #4636C9 55%, #5B4CF0 100%);
+        radial-gradient(ellipse at 20% 0%, rgba(139, 92, 246, 0.4), transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(0, 214, 143, 0.25), transparent 50%),
+        linear-gradient(160deg, #1A1040 0%, #2D1B69 40%, #6C5CE7 100%);
     color: #fff;
-    box-shadow: 0 20px 40px rgba(70, 54, 201, 0.28);
+    box-shadow: 0 20px 60px rgba(108, 92, 231, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.balance-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.balance-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 70px rgba(108, 92, 231, 0.35);
 }
 
 .balance-card-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 34px;
+    margin-bottom: 40px;
+    position: relative;
 }
 
 .balance-card-label {
-    font-size: 12px;
-    letter-spacing: 0.08em;
+    font-size: 11px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    opacity: 0.75;
-    margin: 0 0 6px;
+    opacity: 0.65;
+    margin: 0 0 8px;
+    font-weight: 500;
 }
 
 .balance-card-amount {
     font-family: var(--font-display);
-    font-size: 40px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
     font-variant-numeric: tabular-nums;
     margin: 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 .balance-card-chip {
-    width: 38px;
-    height: 28px;
+    width: 42px;
+    height: 30px;
     border-radius: 6px;
-    background: linear-gradient(135deg, #FFE9B8, #E8C177);
+    background: linear-gradient(135deg, #FFE9B8 0%, #E8C177 50%, #D4A853 100%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.balance-card-chip::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    right: 4px;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .balance-card-bottom {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    position: relative;
 }
 
 .balance-card-number {
     font-family: var(--font-display);
     font-size: 15px;
-    letter-spacing: 0.12em;
-    opacity: 0.9;
+    letter-spacing: 0.18em;
+    opacity: 0.85;
 }
 
 .balance-card-name {
-    font-size: 13px;
-    opacity: 0.75;
+    font-size: 12px;
+    opacity: 0.6;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
+    font-weight: 500;
 }
 
+/* ── Quick Actions ── */
 .quick-actions {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin-bottom: 32px;
+    margin-bottom: 36px;
 }
 
 .quick-action {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 16px 8px;
+    gap: 10px;
+    padding: 20px 12px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     text-decoration: none;
     color: inherit;
-    transition: border-color 0.15s ease, transform 0.1s ease;
+    transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease;
 }
 
 .quick-action:hover {
     border-color: var(--color-primary);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    background: var(--color-surface-2);
 }
 
 .quick-action-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-bg);
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.quick-action:nth-child(1) .quick-action-icon {
+    background: var(--color-mint-glow);
+    color: var(--color-mint);
+}
+
+.quick-action:nth-child(2) .quick-action-icon {
+    background: var(--color-coral-glow);
+    color: var(--color-coral);
+}
+
+.quick-action:nth-child(3) .quick-action-icon {
+    background: var(--color-primary-glow);
+    color: var(--color-primary);
+}
+
+.quick-action:nth-child(4) .quick-action-icon {
+    background: rgba(251, 191, 36, 0.12);
+    color: var(--color-amber);
 }
 
 .quick-action-label {
@@ -160,21 +244,24 @@
     color: var(--color-muted);
 }
 
+/* ── Section ── */
 .dash-section-title {
     font-family: var(--font-display);
     font-size: 16px;
     font-weight: 600;
     margin: 0 0 14px;
+    color: var(--color-ink);
 }
 
 .dash-empty {
     background: var(--color-surface);
     border: 1px dashed var(--color-border);
-    border-radius: var(--radius-md);
-    padding: 28px;
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
     text-align: center;
     color: var(--color-muted);
     font-size: 14px;
+    line-height: 1.6;
 }
 
 .dash-loading, .dash-error {
@@ -184,35 +271,52 @@
     justify-content: center;
     font-family: var(--font-body);
     color: var(--color-muted);
+    font-size: 15px;
 }
 
 .dash-error {
     color: var(--color-coral);
 }
 
-.dash-nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+/* ── Responsive ── */
+@media (max-width: 640px) {
+    .dash-nav {
+        padding: 14px 18px;
+    }
+
+    .dash-main {
+        padding: 20px 16px 60px;
+    }
+
+    .quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .balance-card {
+        padding: 24px 20px;
+        border-radius: var(--radius-lg);
+    }
+
+    .balance-card-amount {
+        font-size: 32px;
+    }
+
+    .balance-card-top {
+        margin-bottom: 28px;
+    }
+
+    .dash-profile-link {
+        display: none;
+    }
 }
 
-.dash-profile-link {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--color-muted);
-    text-decoration: none;
-    transition: color 0.15s ease;
-}
+@media (max-width: 380px) {
+    .balance-card-amount {
+        font-size: 28px;
+    }
 
-.dash-profile-link:hover {
-    color: var(--color-primary);
-}
-
-.balance-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.balance-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 26px 50px rgba(70, 54, 201, 0.34);
+    .auth-brand-name {
+        font-size: 16px;
+    }
 }
