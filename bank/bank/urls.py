@@ -21,8 +21,9 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from app.views import RegisterView,ProfileView,AccountView,DepositView,Withdraw,TransferView
-
+from app.views import RegisterView,ProfileView,AccountView,DepositView,Withdraw,TransferView,TransactionHistoryView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,5 +34,8 @@ urlpatterns = [
     path('account/',AccountView.as_view()),
     path('deposit/',DepositView.as_view()),
     path('withdraw/',Withdraw.as_view()),
-    path('transfer/',TransferView.as_view())
+    path('transfer/',TransferView.as_view()),
+    path('transactions/',TransactionHistoryView.as_view())
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

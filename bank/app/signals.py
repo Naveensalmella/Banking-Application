@@ -12,4 +12,7 @@ def create_profile(sender,instance,created,**kwargs):
 
         account = Account.objects.create(user=instance,account_number = str(random.randint(1000000000,9000000000)))
 
-        send_welcome_email(instance,account)
+        try:
+            send_welcome_email(instance,account)
+        except Exception as e:
+            print("Welcome email failed:", e)

@@ -44,10 +44,13 @@ function Dashboard() {
                     <div className="auth-brand-mark">₹</div>
                     <span className="auth-brand-name">NovaBank</span>
                 </div>
-                <button className="dash-logout" onClick={handleLogout}>Log out</button>
+                <div className="dash-nav-actions">
+                    <Link to="/profile" className="dash-profile-link">Profile</Link>
+                    <button className="dash-logout" onClick={handleLogout}>Log out</button>
+                </div>
             </nav>
 
-            <main className="dash-main">
+            <main className="dash-main fade-in-up">
                 <p className="dash-greeting">Welcome back, <strong>{profile.user}</strong></p>
 
                 <div className="balance-card">

@@ -4,15 +4,22 @@ from rest_framework.permissions import IsAuthenticated
 
 from app.serializers import RegisterSerializer
 
+from rest_framework.permissions import AllowAny
+
 class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
+    permission_classes = [AllowAny]
+    authentication_classes = []
 
 from app.serializers import ProfileSerializer
 from app.models import Profile
 
-class ProfileView(generics.RetrieveAPIView):
+from rest_framework.parsers import MultiPartParser, FormParser
+
+class ProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
     def get_object(self):
         return Profile.objects.get(user=self.request.user)
@@ -33,8 +40,11 @@ from decimal import Decimal
 from rest_framework.response import Response
 
 from app.models import Transaction
+from app.utils import send_deposit_email
+
 
 class DepositView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self,request):
 
@@ -54,10 +64,18 @@ class DepositView(APIView):
             transaction_type = "deposit"
         )
 
+        try:
+            send_deposit_email(request.user, account, amount)
+        except Exception as e:
+            print("Deposit email failed:", e)
+
         return Response({"message":"Deposit successful","balance":account.balance})
         
 
+from app.utils import send_withdraw_email
+
 class Withdraw(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self,request):
 
@@ -79,10 +97,18 @@ class Withdraw(APIView):
             transaction_type = "withdraw"
         )
 
+        try:
+            send_withdraw_email(request.user, account, amount)
+        except Exception as e:
+            print("Withdraw email failed:", e)
+
         return Response({"message":"Withdraw successful","balance":account.balance})
 
 
+from app.utils import send_transfer_email
+
 class TransferView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self,request):
 
@@ -115,4 +141,22 @@ class TransferView(APIView):
             transaction_type = "transfer"
         )
 
+        try:
+            send_transfer_email(request.user, sender, receiver.user, receiver, amount)
+        except Exception as e:
+            print("Transfer email failed:", e)
+
         return Response({"message":"Transfer successfully","Updated balance":sender.balance})
+
+from app.serializers import TransactionSerializer
+from django.db.models import Q
+
+class TransactionHistoryView(generics.ListAPIView):
+    serializer_class = TransactionSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        account = Account.objects.get(user=self.request.user)
+        return Transaction.objects.filter(
+            Q(from_account=account) | Q(to_account=account)
+        ).order_by("-created_at")

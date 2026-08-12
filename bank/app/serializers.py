@@ -5,7 +5,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["username","first_name","last_name","email","password"]
-        except_kwargs = {
+        extra_kwargs = {
             "password": {
                 "write_only":True
             }
@@ -23,13 +23,25 @@ from app.models import Profile
 
 class ProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source="user.username",read_only=True)
-    first_name = serializers.CharField(source="user.first_name",read_only=True)
-    last_name = serializers.CharField(source="user.last_name",read_only=True)
+    first_name = serializers.CharField(source="user.first_name",required=False)
+    last_name = serializers.CharField(source="user.last_name",required=False)
     email = serializers.EmailField(source="user.email",read_only=True)
 
     class Meta:
         model = Profile
         fields = ["username","first_name","last_name","email","phone","image","address"]
+
+    def update(self, instance, validated_data):
+        user_data = validated_data.pop("user", {})
+        for attr, value in user_data.items():
+            setattr(instance.user, attr, value)
+        instance.user.save()
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        return instance
 
 from app.models import Account
 

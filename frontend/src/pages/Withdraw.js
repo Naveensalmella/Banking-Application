@@ -34,7 +34,7 @@ function Withdraw() {
             </nav>
 
             <main className="txn-main">
-                <div className="txn-card">
+                <div className="txn-card fade-in-up">
                     <form onSubmit={handleSubmit}>
                         <label className="txn-label">Enter amount</label>
                         <div className="txn-amount-wrap">
@@ -48,7 +48,7 @@ function Withdraw() {
                             />
                         </div>
 
-                        <button className="txn-submit withdraw" type="submit" disabled={loading}>
+                        <button className="txn-submit withdraw press-scale" type="submit" disabled={loading}>
                             {loading ? "Processing..." : "Withdraw"}
                         </button>
                         {notice && <div className="txn-notice">{notice}</div>}

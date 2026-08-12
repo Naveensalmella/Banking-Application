@@ -32,7 +32,7 @@ function Register() {
 
     return (
         <div className="auth-page">
-            <div className="auth-card">
+            <div className="auth-card fade-in-up">
                 <div className="auth-brand">
                     <div className="auth-brand-mark">₹</div>
                     <span className="auth-brand-name">NovaBank</span>
@@ -70,7 +70,7 @@ function Register() {
                         <input className="auth-input" name="password" type="password" placeholder="Create a password" onChange={handleChange} />
                     </div>
 
-                    <button className="auth-submit" type="submit">Create account</button>
+                    <button className="auth-submit press-scale" type="submit">Create account</button>
                 </form>
 
                 <p className="auth-footer">

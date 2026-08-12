@@ -34,7 +34,7 @@ function Deposit() {
             </nav>
 
             <main className="txn-main">
-                <div className="txn-card">
+                <div className="txn-card fade-in-up">
                     <form onSubmit={handleSubmit}>
                         <label className="txn-label">Enter amount</label>
                         <div className="txn-amount-wrap">
@@ -48,7 +48,7 @@ function Deposit() {
                             />
                         </div>
 
-                        <button className="txn-submit deposit" type="submit" disabled={loading}>
+                        <button className="txn-submit deposit press-scale" type="submit" disabled={loading}>
                             {loading ? "Processing..." : "Deposit"}
                         </button>
                         {notice && <div className="txn-notice">{notice}</div>}

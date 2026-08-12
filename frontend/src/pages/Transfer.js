@@ -39,7 +39,7 @@ function Transfer() {
             </nav>
 
             <main className="txn-main">
-                <div className="txn-card">
+                <div className="txn-card fade-in-up">
                     <form onSubmit={handleSubmit}>
                         <label className="txn-label">Enter amount</label>
                         <div className="txn-amount-wrap">
@@ -64,7 +64,7 @@ function Transfer() {
                             />
                         </div>
 
-                        <button className="txn-submit transfer" type="submit" disabled={loading}>
+                        <button className="txn-submit transfer press-scale"F type="submit" disabled={loading}>
                             {loading ? "Processing..." : "Transfer"}
                         </button>
                         {notice && <div className="txn-notice">{notice}</div>}

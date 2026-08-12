@@ -25,7 +25,7 @@ function Login() {
 
     return (
         <div className="auth-page">
-            <div className="auth-card">
+            <div className="auth-card fade-in-up">
                 <div className="auth-brand">
                     <div className="auth-brand-mark">₹</div>
                     <span className="auth-brand-name">NovaBank</span>
@@ -59,7 +59,7 @@ function Login() {
                         />
                     </div>
 
-                    <button className="auth-submit" type="submit">Log in</button>
+                    <button className="auth-submit press-scale" type="submit">Log in</button>
                 </form>
 
                 <p className="auth-footer">
